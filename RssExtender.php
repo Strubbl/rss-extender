@@ -254,18 +254,27 @@ class RssExtender
 	 *
 	 * @return string
 	 */
-	private function getContentOfUrl(&$url)
+	public function getContentOfUrl(&$url)
 	{
 		if (function_exists('curl_version'))
 		{
 			$curl = curl_init();
 			curl_setopt($curl, CURLOPT_URL, $url);
-			curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
+			curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
 			curl_setopt($curl, CURLOPT_FOLLOWLOCATION, true);
 			curl_setopt($curl, CURLOPT_USERAGENT, "rss-extender 0.6");
+			if (getenv('TRAVIS')) {
+				# avoid tls handshake errors in travis https://stackoverflow.com/a/38429611/709697
+				curl_setopt($curl, CURLOPT_SSLVERSION, CURL_SSLVERSION_TLSv1_1);
+			}
 			$content = curl_exec($curl);
+			if ($content === false) {
+				print("RssExtender->getContentOfUrl: error while curling " . $url . "\n");
+				trigger_error(curl_error($curl));
+			}
 			$url = curl_getinfo($curl, CURLINFO_EFFECTIVE_URL);
 			curl_close($curl);
+			#var_dump($content);
 		}
 		else if (ini_get('allow_url_fopen'))
 		{

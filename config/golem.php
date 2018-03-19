@@ -2,8 +2,8 @@
 
 $config['author']		= "Lars Formella";
 $config['author_url']	= "http://www.larsformella.de/portfolio/programme-software/rss-extender/";
-$config['url']			= "http://rss.golem.de/rss.php?feed=RSS2.0";
-$config['base_url']		= "http://www.golem.de";
+$config['url']			= "https://rss.golem.de/rss.php?feed=RSS2.0";
+$config['base_url']		= "https://www.golem.de";
 $config['content']		= array("#<!--content-->(.*)<!--/content-->#Uis", 1);
 $config['search']		= array("#<script type=\"text\/javascript\">.*= new.*SWFObject\(\"(.*)\",\".*\",\"(.*)\",\"(.*)\",\".*\",\".*\"\);.*.addVariable\(\"id\", \"(.*)\"\);.*<\/script>#Uis",
 								"#<script( language=\"javascript\"|) type=\"text\/javascript\".*>.*<\/script>#Uis",
