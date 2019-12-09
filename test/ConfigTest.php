@@ -8,7 +8,7 @@ class ConfigTest extends TestCase
 {
   protected $rssExtender;
 
-  protected function setUp()
+  protected function setUp(): void
   {
     $this->rssExtender = new RssExtender();
   }
